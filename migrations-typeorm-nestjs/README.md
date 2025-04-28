@@ -1,8 +1,3 @@
-Got it — you want a complete, clean, **ready-to-paste `README.md`** section that explains **migrations**, **seeding** (if available), and **typeorm CLI commands** for your project.
-
-Here’s the complete README for you:
-
----
 
 # 📚 TypeORM + PostgreSQL Migrations Guide
 
@@ -174,14 +169,4 @@ src/
 - Keep your `src/migrations/` folder clean and in sync with your production database schema.
 - Always check generated migration code before running it!
 
----
-
-# 🎯 Bonus (if you want seeding)
-
 Later, if you want, I can help you add **Seeder Support** (using libraries like `typeorm-seeding` or custom scripts).
-
----
-
-Would you like me to also give you **a ready seeder script template** to go along with this? 🚀  
-(Just 1 file, clean and optional!)  
-Let me know!
