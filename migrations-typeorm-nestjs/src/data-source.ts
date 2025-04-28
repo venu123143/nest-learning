@@ -1,23 +1,23 @@
-// data-source.ts
+// src/data-source.ts
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
+import { ConfigService } from '@nestjs/config';
 
 dotenv.config();
 
+const configService = new ConfigService();
+
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: process.env.POSTGRES_HOST,
-  port: Number(process.env.POSTGRES_PORT) || 5432,
-  username: process.env.POSTGRES_USERNAME,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DATABASE,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-  entities: ['src/**/*.entity.ts'],
-  migrations: ['src/migrations/*.ts'],
-  synchronize: process.env.POSTGRES_SYNCHRONIZE === 'true', // Convert string to boolean
-  logging: true, // Optional: enable query logging
-  extra: {
-    max: 20, // Maximum number of connections in pool
-    connectionTimeoutMillis: 5000, // Maximum time to wait for connection
-  }
+  host: configService.get('POSTGRES_HOST'),
+  port: configService.get<number>('POSTGRES_PORT') || 5432,
+  username: configService.get('POSTGRES_USERNAME'),
+  password: configService.get('POSTGRES_PASSWORD'),
+  database: configService.get('POSTGRES_DATABASE'),
+  ssl: configService.get('NODE_ENV') === 'production' ? { rejectUnauthorized: false } : false,
+  entities: [__dirname + '/**/*.entity{.ts,.js}'],
+  migrations: [__dirname + '/migrations/*{.ts,.js}'],
+  synchronize: false,
+  logging: true,
+  migrationsTableName: 'typeorm_migrations',
 });

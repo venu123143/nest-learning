@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Booking } from './booking.entity';
+import { QueueEntry } from './queue-entry.entity';
+
 
 @Entity()
 export class User {
@@ -19,4 +22,11 @@ export class User {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
+
+  // Relations
+  @OneToMany(() => Booking, booking => booking.user)
+  bookings: Booking[];
+
+  @OneToMany(() => QueueEntry, queueEntry => queueEntry.user)
+  queueEntries: QueueEntry[];
 }
